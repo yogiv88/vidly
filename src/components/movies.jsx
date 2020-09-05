@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { getMovies } from "../services/fakeMovieService";
-import Pagination from "./common/pagination";
-import { paginate } from "../utils/paginate";
-import ListGroup from "./common/listGroup";
 import { getGenres } from "../services/fakeGenreService";
+import { paginate } from "../utils/paginate";
+import Pagination from "./common/pagination";
+import ListGroup from "./common/listGroup";
 import MovieTable from "./moviesTable";
 import _ from "lodash";
 
@@ -75,8 +76,8 @@ class Movies extends Component {
       genres,
     } = this.state;
     const { length: count } = this.state.movies;
-
     const { totalCount, data: movies } = this.getPagedData();
+    const { history } = this.props;
 
     if (count === 0) {
       return <p>There are no movies in the database.</p>;
@@ -92,6 +93,11 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
+          <div className="mb-3">
+            <Link to="/movies/new" className="btn btn-primary mb-3">
+              New Movie
+            </Link>
+          </div>
           <p>Showing {totalCount} movies from the database</p>
           <MovieTable
             movies={movies}
