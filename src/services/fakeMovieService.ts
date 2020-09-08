@@ -1,8 +1,8 @@
 import * as genresAPI from "./fakeGenreService";
-import { Movie, Genre } from './servicesInterface';
+import { IMovie, IGenre } from './servicesInterface';
 
 
-const movies: Array<Movie> = [
+const movies: Array<IMovie> = [
   {
     _id: "5b21ca3eeb7f6fbccd471815",
     title: "Terminator",
@@ -78,23 +78,23 @@ const movies: Array<Movie> = [
   },
 ];
 
-export function getMovies(): Array<Movie> {
+export function getMovies(): Array<IMovie> {
   return movies;
 }
 
-export function getMovie(id: string): Movie | undefined {
+export function getMovie(id: string): IMovie | undefined {
   return movies.find((m) => m._id === id);
 }
 
-export function saveMovie(movie: Movie) {
-  let movieInDb: Movie | undefined = movies.find((m) => m._id === movie._id);
+export function saveMovie(movie: IMovie) {
+  let movieInDb: IMovie | undefined = movies.find((m) => m._id === movie._id);
   if(movieInDb)
     return;
   
   movieInDb = {
     _id: Date.now().toString(),
     title: movie.title,
-    genre: genresAPI.genres.find((g) => g._id === movie.genre._id) as Genre,
+    genre: genresAPI.genres.find((g) => g._id === movie.genre._id) as IGenre,
     numberInStock: movie.numberInStock,
     dailyRentalRate: movie.dailyRentalRate
   }
@@ -104,7 +104,7 @@ export function saveMovie(movie: Movie) {
 }
 
 export function deleteMovie(id: string) {
-  let movieInDb: Movie = movies.find((m) => m._id === id) as Movie;
+  let movieInDb: IMovie = movies.find((m) => m._id === id) as IMovie;
   movies.splice(movies.indexOf(movieInDb), 1);
   return movieInDb;
 }

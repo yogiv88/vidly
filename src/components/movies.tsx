@@ -7,25 +7,25 @@ import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./common/listGroup";
 import MovieTable from "./moviesTable";
-import { Movie, Genre } from "./../services/servicesInterface";
-import { SortColumn } from './componentsInterface';
+import { IMovie, IGenre } from "./../services/servicesInterface";
+import { ISortColumn } from './componentsInterface';
 
 function Movies() {
 
-  const [movies, setMovies] = useState<Array<Movie>>(getMovies());
+  const [movies, setMovies] = useState<Array<IMovie>>(getMovies());
 
   const genresList = [{name: "All Genres" }, ...getGenres()];
-  const [genres] = useState<Array<Genre>>( genresList );
-  const [selectedGenre, setSelectedGenre] = useState<Genre>(genresList[0]);
+  const [genres] = useState<Array<IGenre>>( genresList );
+  const [selectedGenre, setSelectedGenre] = useState<IGenre>(genresList[0]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize] = useState<number>(4);
-  const [sortColumn, setSortColumn] = useState( { path: "title", order: "asc" } as SortColumn )
+  const [sortColumn, setSortColumn] = useState( { path: "title", order: "asc" } as ISortColumn )
 
-  function handleDelete(movie: Movie){
-    const moviesFiltered = movies.filter((m: Movie) => movie._id !== m._id);
+  function handleDelete(movie: IMovie){
+    const moviesFiltered = movies.filter((m: IMovie) => movie._id !== m._id);
     setMovies(moviesFiltered);
   };
-  function handleLike(movie: Movie){
+  function handleLike(movie: IMovie){
     const moviesList = [...movies];
     const index = moviesList.indexOf(movie);
     moviesList[index] = { ...movie };
@@ -35,11 +35,11 @@ function Movies() {
   function handlePageChange(page: number){
     setCurrentPage(page);
   };
-  function handleGenreSelect(genre: Genre){
+  function handleGenreSelect(genre: IGenre){
     setSelectedGenre(genre);
     setCurrentPage(1)
   };
-  function handleSort(sortColumn: SortColumn){
+  function handleSort(sortColumn: ISortColumn){
     setSortColumn(sortColumn);
   };
 

@@ -1,12 +1,12 @@
 import React from "react";
 import Like from "./common/like";
 import Table from "./common/table";
-import { Movie } from "../services/servicesInterface";
-import { MovieTableProps } from "./componentsInterface";
+import { IMovie } from "../services/servicesInterface";
+import { IMovieTableProps } from "./componentsInterface";
 
 
 
-function MovieTable(props:MovieTableProps) {
+function MovieTable(props:IMovieTableProps) {
   const columns = [
     { path: "title", label: "Title" },
     { path: "genre.name", label: "Genre" },
@@ -14,19 +14,30 @@ function MovieTable(props:MovieTableProps) {
     { path: "dailyRentalRate", label: "Rate" },
     {
       key: "like",
-      content: (movie: Movie) => (
+      content: (movie: IMovie) => (
         <Like onClick={() => props.onLike(movie)} liked={movie.liked} />
       ),
     },
     {
       key: "delete",
-      content: (movie: Movie) => (
+      content: (movie: IMovie) => (
         <button
           onClick={() => props.onDelete(movie)}
           className="btn btn-danger btn-sm"
         >
           Delete
         </button>
+      ),
+    },
+    {
+      key: "view",
+      content: (movie: IMovie) => (
+        <a
+          href={`/movie/${movie._id}`}
+          className="btn btn-success btn-sm"
+        >
+          View
+        </a>
       ),
     },
   ];

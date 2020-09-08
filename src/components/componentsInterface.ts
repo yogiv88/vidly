@@ -1,14 +1,18 @@
-import { Movie } from './../services/servicesInterface'
+import { IMovie } from './../services/servicesInterface'
 
-export interface SortColumn {
+export interface ISortColumn {
   path: string,
   order: 'asc'| 'desc'
 }
 
-export type MovieTableProps = {
-  onLike: ( movie: Movie )=> void,
-  onDelete: ( movie: Movie )=> void,
-  onSort: (sortColumn: SortColumn) => void
-  sortColumn: SortColumn,
-  movies: Array<Movie>
+export type IMovieTableProps = {
+  onLike: ( movie: IMovie )=> void,
+  onDelete: ( movie: IMovie )=> void,
+  onSort: (sortColumn: ISortColumn) => void
+  sortColumn: ISortColumn,
+  movies: Array<IMovie>
+}
+
+export type IMovieParams = {
+  movieId: string
 }

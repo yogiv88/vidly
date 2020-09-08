@@ -1,17 +1,17 @@
 
 
 
-export interface Movie {
+export interface IMovie {
   _id: string,
   title: string,
-  genre: Genre,
+  genre: IGenre,
   numberInStock: number,
   dailyRentalRate: number,
   publishDate?: string,
   liked?: boolean
 }
 
-export interface Genre {
+export interface IGenre {
   _id?: string,
   name: string
 }
