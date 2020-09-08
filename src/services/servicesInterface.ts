@@ -12,6 +12,6 @@ export interface Movie {
 }
 
 export interface Genre {
-  _id: string,
+  _id?: string,
   name: string
 }

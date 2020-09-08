@@ -7,21 +7,23 @@ const ListGroup = ({
   valueProperty,
   selectedItem,
 }) => {
-  return items.map((item) => (
+  return (
     <ul className="list-group">
-      <li
-        key={item[valueProperty]}
-        onClick={() => onItemSelect(item)}
-        className={
-          selectedItem._id === item._id
-            ? "list-group-item active"
-            : "list-group-item"
-        }
-      >
-        {item[textProperty]}
-      </li>
+      {items.map((item) => (
+        <li
+          key={item[valueProperty]}
+          onClick={() => onItemSelect(item)}
+          className={
+            selectedItem._id === item._id
+              ? "list-group-item active"
+              : "list-group-item"
+          }
+        >
+          {item[textProperty]}
+        </li>
+      ))}
     </ul>
-  ));
+  )
 };
 
 ListGroup.defaultProps = {
