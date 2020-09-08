@@ -1,20 +1,23 @@
 import React, { Component } from "react";
+import _ from "lodash";
+
 import { getMovies } from "../services/fakeMovieService";
+import { getGenres } from "../services/fakeGenreService";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./common/listGroup";
-import { getGenres } from "../services/fakeGenreService";
 import MovieTable from "./moviesTable";
-import _ from "lodash";
+import { Movie, Genre } from "./../services/servicesInterface";
+import { SortColumn } from './componentsInterface';
 
 class Movies extends Component {
   state = {
-    movies: [],
+    movies: [] as Array<Movie>,
     pageSize: 4,
     currentPage: 1,
-    genres: [],
-    selectedGenre: null,
-    sortColumn: { path: "title", order: "asc" },
+    genres: [] as Array<Genre>,
+    selectedGenre: undefined as Genre | undefined,
+    sortColumn: { path: "title", order: "asc" } as SortColumn,
   };
 
   componentDidMount() {
@@ -26,24 +29,24 @@ class Movies extends Component {
     });
   }
 
-  handleDelete = (movie) => {
+  handleDelete = (movie: Movie) => {
     const movies = this.state.movies.filter((m) => movie._id !== m._id);
     this.setState({ movies });
   };
-  handleLike = (movie) => {
+  handleLike = (movie: Movie) => {
     const movies = [...this.state.movies];
     const index = movies.indexOf(movie);
     movies[index] = { ...movie };
     movies[index].liked = !movies[index].liked;
     this.setState({ movies });
   };
-  handlePageChange = (page) => {
+  handlePageChange = (page: number) => {
     this.setState({ currentPage: page });
   };
-  handleGenreSelect = (genre) => {
+  handleGenreSelect = (genre: Genre) => {
     this.setState({ selectedGenre: genre, currentPage: 1 });
   };
-  handleSort = (sortColumn) => {
+  handleSort = (sortColumn: SortColumn) => {
     this.setState({ sortColumn });
   };
 
@@ -111,5 +114,7 @@ class Movies extends Component {
     );
   }
 }
+
+
 
 export default Movies;

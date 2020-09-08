@@ -1,6 +1,8 @@
 import * as genresAPI from "./fakeGenreService";
+import { Movie, Genre } from './servicesInterface';
 
-const movies = [
+
+const movies: Array<Movie> = [
   {
     _id: "5b21ca3eeb7f6fbccd471815",
     title: "Terminator",
@@ -76,31 +78,33 @@ const movies = [
   },
 ];
 
-export function getMovies() {
+export function getMovies(): Array<Movie> {
   return movies;
 }
 
-export function getMovie(id) {
+export function getMovie(id: string): Movie | undefined {
   return movies.find((m) => m._id === id);
 }
 
-export function saveMovie(movie) {
-  let movieInDb = movies.find((m) => m._id === movie._id) || {};
-  movieInDb.name = movie.name;
-  movieInDb.genre = genresAPI.genres.find((g) => g._id === movie.genreId);
-  movieInDb.numberInStock = movie.numberInStock;
-  movieInDb.dailyRentalRate = movie.dailyRentalRate;
-
-  if (!movieInDb._id) {
-    movieInDb._id = Date.now();
-    movies.push(movieInDb);
+export function saveMovie(movie: Movie) {
+  let movieInDb: Movie | undefined = movies.find((m) => m._id === movie._id);
+  if(movieInDb)
+    return;
+  
+  movieInDb = {
+    _id: Date.now().toString(),
+    title: movie.title,
+    genre: genresAPI.genres.find((g) => g._id === movie.genre._id) as Genre,
+    numberInStock: movie.numberInStock,
+    dailyRentalRate: movie.dailyRentalRate
   }
-
+    
+  movies.push(movieInDb);
   return movieInDb;
 }
 
-export function deleteMovie(id) {
-  let movieInDb = movies.find((m) => m._id === id);
+export function deleteMovie(id: string) {
+  let movieInDb: Movie = movies.find((m) => m._id === id) as Movie;
   movies.splice(movies.indexOf(movieInDb), 1);
   return movieInDb;
 }

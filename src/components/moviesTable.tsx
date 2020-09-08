@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import Like from "./common/like";
 import Table from "./common/table";
+import { Movie } from "../services/servicesInterface";
+import { MovieTableProps } from "./componentsInterface";
 
-class MovieTable extends Component {
+
+
+class MovieTable extends Component<MovieTableProps> {
   columns = [
     { path: "title", label: "Title" },
     { path: "genre.name", label: "Genre" },
@@ -10,13 +14,13 @@ class MovieTable extends Component {
     { path: "dailyRentalRate", label: "Rate" },
     {
       key: "like",
-      content: (movie) => (
+      content: (movie: Movie) => (
         <Like onClick={() => this.props.onLike(movie)} liked={movie.liked} />
       ),
     },
     {
       key: "delete",
-      content: (movie) => (
+      content: (movie: Movie) => (
         <button
           onClick={() => this.props.onDelete(movie)}
           className="btn btn-danger btn-sm"
